@@ -96,20 +96,57 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        for i in range(0, len(self._list)-1):
-            cur_index = i
-            smallest_index = cur_index
+        
+        # for i in range(0, len(self._list)-1):
             
-            smallest_value = self._list[cur_index]
+        #     # finds and sets smallest element
+        #     cur_index = i
+        #     smallest_index = cur_index
             
-            for unsorted_index in range(cur_index, len(self._list)):
-                if self._list[unsorted_index] < smallest_value:
-                    smallest_value = self._list[unsorted_index]
-                    smallest_index = unsorted_index
+        #     smallest_value = self._list[cur_index]
+            
+        #     for unsorted_index in range(cur_index, len(self._list)):
+        #         if self._list[unsorted_index] < smallest_value:
+        #             smallest_value = self._list[unsorted_index]
+        #             smallest_index = unsorted_index
                     
-            self._list[cur_index], self._list[smallest_index] = self._list[smallest_index], self._list[cur_index]
-
+        #     # swap the found minimum element with the first element
+        #     self._list[cur_index], self._list[smallest_index] = self._list[smallest_index], self._list[cur_index]
+        
+        # pick up first item
+        self.swap_item()
+        # move to right, next item
+        self.move_right()
+        self.set_light_on()
+        
+        while self.light_is_on():
+            
+            while self.can_move_right():
+            # compare item if it is larger it returns 1
+                if self.compare_item() == 1:
+                    self.swap_item()
+                    self.move_left()
+                    self.swap_item()
+                    self.move_right()
+                    self.set_light_off()
+                else:
+                    self.move_right()
+                
+        
+                
+            while self.can_move_left():
+            # move left to swap smaller item
+                if self.compare_item() == -1:
+                    self.swap_item()
+                    self.move_right()
+                    self.swap_item()
+                    self.move_left()
+                    self.set_light_off()
+                else:
+                    self.move_left()
+                    
+        
+                
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
