@@ -96,9 +96,53 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        # use bubble sort, compare item the robot has and the item in front of the robot
 
+        # swaps the larger item to the right until it cant go right anymore, repeat
+        
+        # light being on indicates a swap, run the loop until no more swaps
+        
+        # loop ends when no more swaps
+        
+        while True:
+            # set light off
+            self.set_light_off()
+            # sort moving right
+            while self.can_move_right():
+                # pick up item 
+                self.swap_item()
+                # move right
+                self.move_right()
+                # compare item, if it larger, then swap
+                if self.compare_item() == 1:
+                    self.swap_item()
+                # move left then swap items
+                self.move_left()
+                self.swap_item()
+                # move right and repeat
+                self.move_right()
+        
+            # sorting moving left
+            while self.can_move_left():
+                # pick up item
+                self.swap_item()
+                # compare with the next
+                self.move_left()
+                # if the item is larger swap it,
+                if self.compare_item() == -1:
+                    self.swap_item()
+                    # set light on means a sort happened
+                    # if no swap was made light does not turn on and the sort is completed
+                    self.set_light_on()
+                # compare next items going back the start of the loop
+                self.move_right()
+                self.swap_item()
+                self.move_left()
+            # exit the loop once the light does not turn on 
+            if self.light_is_on() is False:
+                return
+        
+                
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
