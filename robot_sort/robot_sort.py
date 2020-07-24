@@ -96,55 +96,51 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
+        # use bubble sort, compare item the robot has and the item in front of the robot
+
+        # swaps the larger item to the right until it cant go right anymore, repeat
         
-        # for i in range(0, len(self._list)-1):
-            
-        #     # finds and sets smallest element
-        #     cur_index = i
-        #     smallest_index = cur_index
-            
-        #     smallest_value = self._list[cur_index]
-            
-        #     for unsorted_index in range(cur_index, len(self._list)):
-        #         if self._list[unsorted_index] < smallest_value:
-        #             smallest_value = self._list[unsorted_index]
-        #             smallest_index = unsorted_index
-                    
-        #     # swap the found minimum element with the first element
-        #     self._list[cur_index], self._list[smallest_index] = self._list[smallest_index], self._list[cur_index]
+        # light being on indicates a swap, run the loop until no more swaps
         
-        # pick up first item
-        self.swap_item()
-        # move to right, next item
-        self.move_right()
-        self.set_light_on()
+        # loop ends when no more swaps
         
-        while self.light_is_on():
-            
+        while True:
+            # set light off
+            self.set_light_off()
+            # sort moving right
             while self.can_move_right():
-            # compare item if it is larger it returns 1
+                # pick up item 
+                self.swap_item()
+                # move right
+                self.move_right()
+                # compare item, if it larger, then swap
                 if self.compare_item() == 1:
                     self.swap_item()
-                    self.move_left()
-                    self.swap_item()
-                    self.move_right()
-                    self.set_light_off()
-                else:
-                    self.move_right()
-                
+                # move left then swap items
+                self.move_left()
+                self.swap_item()
+                # move right and repeat
+                self.move_right()
         
-                
+            # sorting moving left
             while self.can_move_left():
-            # move left to swap smaller item
+                # pick up item
+                self.swap_item()
+                # compare with the next
+                self.move_left()
+                # if the item is larger swap it,
                 if self.compare_item() == -1:
                     self.swap_item()
-                    self.move_right()
-                    self.swap_item()
-                    self.move_left()
-                    self.set_light_off()
-                else:
-                    self.move_left()
-                    
+                    # set light on means a sort happened
+                    # if no swap was made light does not turn on and the sort is completed
+                    self.set_light_on()
+                # compare next items going back the start of the loop
+                self.move_right()
+                self.swap_item()
+                self.move_left()
+            # exit the loop once the light does not turn on 
+            if self.light_is_on() is False:
+                return
         
                 
 
